@@ -1,0 +1,8 @@
+#!/bin/sh
+[ -n "$1" ] && HOFF="$1" || HOFF=400
+mocp -i | awk '{
+    if ($1~/^TotalSec:/) { ts=$2 };
+    if ($1~/^CurrentSec:/) { cs=$2 };
+} END {
+    print int(cs/(ts/100))
+}'
